@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+@utility card {
+   background-color: #ffffff;
+   border: 1px solid #e9d5ff;
+   border-radius: 12px;
+   margin: 12px;
+   width: 310px;
+   max-width: calc(100% - 24px);
+   box-shadow: 0 4px 10px rgba(124, 58, 237, 0.1);
+   padding: 20px;
+   min-height: 300px;
+   box-sizing: border-box;
+   display: flex;
+   flex-direction: column;
+}
+
+@utility list{
+     background-color:#f5f0ff;
+     border-radius:8px;
+     padding:12px;
+     margin:12px 0;
+
+}
+
+@utility card-title{
+    color:#7c3aed;
+    font-size:20px;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+ 
+@utility card-actions{
+    display:flex;
+    flex-direction:row;
+    gap:10px;
+    margin-top:auto;
+    padding-top:20px;
+}
+
+@utility card-btn{
+    background-color:#8b5cf6;
+    color:white;
+    padding:8px 14px;
+    border-radius:8px;
+    font-size:14px;
+    cursor:pointer;
+    border:none;
+    width:auto;
+    transition:background-color 0.2s ease;
+}
+
+@utility edit-btn {
+     background-color:#8b5cf6;
+}
+
+@utility delete-btn {
+     background-color:#f87171;
+
+}
+
+
+@media (max-width: 480px) {
+   
+    button{
+        margin-right:9px;
+    }
+    .card {
+        width: 90%;
+        max-width: 100%;
+        margin:0 auto;
+        min-height: 250px;
+    }
+
+    .card-actions {
+        flex-wrap: wrap;
+    }
+
+    .card-btn {
+        padding: 8px 12px;
+    }
+}
