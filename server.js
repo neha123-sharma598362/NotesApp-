@@ -1,4 +1,3 @@
-
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -15,7 +14,7 @@ main().then(()=>{
 
 
 async function main(){
-    await mongoose.connect("mongodb://127.0.0.1:27017/notesApp")
+    await mongoose.connect(process.env.Mongo_URL)
 }
 
 
@@ -33,7 +32,8 @@ app.use("/api/notes", noteRoutes);
 
 
 //Port
-app.listen(3000,()=>{
-    console.log("app listening on port 3000");
-    
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log(`app listening on port ${PORT}`);
 });
