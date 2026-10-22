@@ -1,5 +1,7 @@
-import axios from "axios";
+ import axios from "axios";
 import { useState } from "react";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function NoteForm({ onClose , onNoteSaved,  editNote, showToast,}) {
  const [title, setTitle] = useState(editNote ? editNote.title : "");
@@ -7,18 +9,19 @@ const [description, setDescription] = useState(
   editNote ? editNote.description : ""
 );
 
+
 async function handleSubmit(e) {
   e.preventDefault();
 
   try {
     if (editNote) {
       await axios.put(
-        `http://localhost:3000/api/notes/${editNote._id}`,
+        `${API_URL}/api/notes/${editNote._id}`,
         { title, description }
       );
     } else {
       await axios.post(
-        "http://localhost:3000/api/notes",
+        `${API_URL}/api/notes`,
         { title, description }
       );
     }
@@ -99,6 +102,12 @@ async function handleSubmit(e) {
               </button>
             </div>
           </form>
+        </div>
+      </div>
+    </>
+  );
+}
+
         </div>
       </div>
     </>
