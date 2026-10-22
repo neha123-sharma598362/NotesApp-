@@ -1,9 +1,10 @@
-
 import './Notes.css';
 import NotesCard from './NoteCard';
 import NoteForm from './NoteForm';
 import axios from "axios";
 import { useState, useEffect } from "react";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function Notes() {
     const [showForm, setShowForm] = useState(false);
@@ -22,9 +23,8 @@ export default function Notes() {
             setLoading(true);
             setError("");
 
-            const response = await axios.get(
-                "http://localhost:3000/api/notes"
-            );
+           
+            const response = await axios.get(`${API_URL}/api/notes`);
 
             setNotes(response.data.notes);
         } catch (error) {
@@ -40,9 +40,9 @@ export default function Notes() {
             setLoading(true);
             setError("");
 
-            const response = await axios.get(
-                "http://localhost:3000/api/notes/trash"
-            );
+           const response = await axios.get(
+    `${API_URL}/api/notes/trash`
+);
 
             setTrashNotes(response.data.notes);
         } catch (error) {
@@ -63,9 +63,7 @@ export default function Notes() {
 
     async function handleDelete(id) {
         try {
-            await axios.delete(
-                `http://localhost:3000/api/notes/${id}`
-            );
+           await axios.delete(`${API_URL}/api/notes/${id}`);
 
             showToast("Note moved to Trash!");
 
@@ -79,8 +77,8 @@ export default function Notes() {
     async function handleRestore(id) {
         try {
             await axios.patch(
-                `http://localhost:3000/api/notes/${id}/restore`
-            );
+    `http://localhost:3000/api/notes/${id}/restore`
+);
 
             showToast("Note restored successfully!");
 
@@ -94,9 +92,7 @@ export default function Notes() {
 
     async function handlePermanentDelete(id) {
         try {
-            await axios.delete(
-                `http://localhost:3000/api/notes/${id}/permanent`
-            );
+            await axios.delete(`${API_URL}/api/notes/${id}/permanent`);
 
             showToast("Note permanently deleted!");
 
