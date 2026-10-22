@@ -18,40 +18,45 @@ export default function Notes() {
 
     const [trashNotes, setTrashNotes] = useState([]);
 
-    async function fetchNotes() {
-        try {
+   async function fetchNotes(showLoader = false) {
+    try {
+        if (showLoader) {
             setLoading(true);
-            setError("");
+        }
 
-           
-            const response = await axios.get(`${API_URL}/api/notes`);
+        setError("");
 
-            setNotes(response.data.notes);
-        } catch (error) {
-            console.log("Error fetching notes:", error);
-            setError("Unable to load notes. Please try again.");
-        } finally {
+        const response = await axios.get(`${API_URL}/api/notes`);
+        setNotes(response.data.notes);
+    } catch (error) {
+        console.log("Error fetching notes:", error);
+        setError("Unable to load notes. Please try again.");
+    } finally {
+        if (showLoader) {
             setLoading(false);
         }
     }
+}
 
-    async function fetchTrashNotes() {
-        try {
+   async function fetchTrashNotes(showLoader = false) {
+    try {
+        if (showLoader) {
             setLoading(true);
-            setError("");
+        }
 
-           const response = await axios.get(
-    `${API_URL}/api/notes/trash`
-);
+        setError("");
 
-            setTrashNotes(response.data.notes);
-        } catch (error) {
-            console.log("Error fetching trash notes:", error);
-            setError("Unable to load Trash. Please try again.");
-        } finally {
+        const response = await axios.get(`${API_URL}/api/notes/trash`);
+        setTrashNotes(response.data.notes);
+    } catch (error) {
+        console.log("Error fetching trash notes:", error);
+        setError("Unable to load Trash. Please try again.");
+    } finally {
+        if (showLoader) {
             setLoading(false);
         }
     }
+}
 
     function showToast(message) {
         setToast(message);
@@ -77,7 +82,8 @@ export default function Notes() {
     async function handleRestore(id) {
         try {
             await axios.patch(
-    `http://localhost:3000/api/notes/${id}/restore`
+    
+    `${API_URL}/api/notes/${id}/restore`
 );
 
             showToast("Note restored successfully!");
@@ -104,18 +110,20 @@ export default function Notes() {
     }
 
     function handleTabChange(tab) {
-        setActiveTab(tab);
+    setActiveTab(tab);
 
-        if (tab === "all") {
-            fetchNotes();
-        } else {
-            fetchTrashNotes();
-        }
+    if (tab === "all") {
+        fetchNotes(true);
+    } else {
+        fetchTrashNotes(true);
     }
+}
 
     useEffect(() => {
-        fetchNotes();
+        fetchNotes(true);
     }, []);
+
+    
 
     return (
         <>
